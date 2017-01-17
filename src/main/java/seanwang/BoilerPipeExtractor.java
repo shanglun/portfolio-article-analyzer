@@ -13,7 +13,7 @@ import de.l3s.boilerpipe.sax.HTMLDocument;
 import de.l3s.boilerpipe.sax.HTMLFetcher;
 
 public class BoilerPipeExtractor {
-    public static String extractFromUrl(String userUrl) throws Exception {
+    public static String extractFromUrl(String userUrl) throws java.io.IOException, org.xml.sax.SAXException, de.l3s.boilerpipe.BoilerpipeProcessingException  {
         final HTMLDocument htmlDoc = HTMLFetcher.fetch(new URL(userUrl));
         final TextDocument doc = new BoilerpipeSAXInput(htmlDoc.toInputSource()).getTextDocument();
         String content = CommonExtractors.ARTICLE_EXTRACTOR.getText(doc);
