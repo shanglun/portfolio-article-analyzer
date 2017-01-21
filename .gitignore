@@ -49,4 +49,4 @@ Temporary Items
 # IDEA
 .idea
 # Java binaries
-.class
+*.class
