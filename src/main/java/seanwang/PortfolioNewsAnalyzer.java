@@ -16,7 +16,7 @@ import de.l3s.boilerpipe.sax.HTMLFetcher;
 public class PortfolioNewsAnalyzer {
     private HashSet<String> portfolio;
     private static final String modelPath = "edu\\stanford\\nlp\\models\\pos-tagger\\english-left3words\\english-left3words-distsim.tagger";
-    private static MaxentTagger tagger;
+    private MaxentTagger tagger;
     public PortfolioNewsAnalyzer(){
         this.portfolio = new HashSet<String>();
         this.tagger = new MaxentTagger(modelPath);
@@ -31,11 +31,10 @@ public class PortfolioNewsAnalyzer {
             org.xml.sax.SAXException,
             de.l3s.boilerpipe.BoilerpipeProcessingException
     {
-        String articleText = this.extractFromUrl(urlString);
+        String articleText = PortfolioNewsAnalyzer.extractFromUrl(urlString);
         String tagged = this.tagPos(articleText);
-        HashSet<String> properNounsSet = this.extractProperNouns(tagged);
-        boolean mentioned = this.arePortfolioCompaniesMentioned(properNounsSet);
-        return mentioned;
+        HashSet<String> properNounsSet = PortfolioNewsAnalyzer.extractProperNouns(tagged);
+        return this.arePortfolioCompaniesMentioned(properNounsSet);
     }
 
     public boolean arePortfolioCompaniesMentioned(HashSet<String> articleProperNouns){
@@ -46,7 +45,7 @@ public class PortfolioNewsAnalyzer {
         HashSet<String> propNounSet = new HashSet<String>();
         String[] split = taggedOutput.split(" ");
         List<String> propNounList = new ArrayList<String>();
-        for (String token: split ){
+        for (String token: split){
             String[] split_token = token.split("_");
             if(split_token[1].equals("NNP")){
                 propNounSet.add(split_token[0]);
@@ -65,9 +64,8 @@ public class PortfolioNewsAnalyzer {
         return propNounSet;
     }
 
-    public static String tagPos(String input) {
-        String output = tagger.tagString(input);
-        return output;
+    public String tagPos(String input) {
+        return this.tagger.tagString(input);
     }
 
     public static String extractFromUrl(String userUrl) throws
@@ -76,7 +74,6 @@ public class PortfolioNewsAnalyzer {
             de.l3s.boilerpipe.BoilerpipeProcessingException  {
         final HTMLDocument htmlDoc = HTMLFetcher.fetch(new URL(userUrl));
         final TextDocument doc = new BoilerpipeSAXInput(htmlDoc.toInputSource()).getTextDocument();
-        String content = CommonExtractors.ARTICLE_EXTRACTOR.getText(doc);
-        return content;
+        return CommonExtractors.ARTICLE_EXTRACTOR.getText(doc);
     }
 }
