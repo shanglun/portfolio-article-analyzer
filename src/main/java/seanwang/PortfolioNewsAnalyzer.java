@@ -48,7 +48,6 @@ public class PortfolioNewsAnalyzer {
         for (String token: split){
             String[] split_token = token.split("_");
             if(split_token[1].equals("NNP")){
-                propNounSet.add(split_token[0]);
                 propNounList.add(split_token[0]);
             } else {
                 if (!propNounList.isEmpty()) {
