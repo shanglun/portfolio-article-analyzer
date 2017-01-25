@@ -31,9 +31,9 @@ public class PortfolioNewsAnalyzer {
     }
 
     public boolean analyzeArticle(String urlString) throws
-            java.io.IOException,
-            org.xml.sax.SAXException,
-            de.l3s.boilerpipe.BoilerpipeProcessingException
+            IOException,
+            SAXException,
+            BoilerpipeProcessingException
     {
         String articleText = PortfolioNewsAnalyzer.extractFromUrl(urlString);
         String tagged = tagPos(articleText);
