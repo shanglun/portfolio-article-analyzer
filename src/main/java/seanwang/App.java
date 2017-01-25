@@ -1,11 +1,15 @@
 package seanwang;
 
+import java.io.IOException;
+import org.xml.sax.SAXException;
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
+
 public class App 
 {
     public static void main( String[] args ) throws
-            java.io.IOException,
-            org.xml.sax.SAXException,
-            de.l3s.boilerpipe.BoilerpipeProcessingException
+            IOException,
+            SAXException,
+            BoilerpipeProcessingException
     {
         PortfolioNewsAnalyzer analyzer = new PortfolioNewsAnalyzer();
         analyzer.addPortfolioCompany("Luxottica");
